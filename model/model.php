@@ -23,12 +23,19 @@ class Model {
 
     }
 
-    public function fighting($admg,$dhp){
 
-        if($dhp-$admg!==0){
-            return $dhp-$admg;
+    public function fighting($admg,$dhp,$type){
+
+        if($dhp-$admg>0){
+             $newhp= $dhp-$admg;
+             $updating= new crud;
+             $updating->update('valuz',[$newhp=>$type],'hp');
+             return $newhp;
         } else {
-            return 'Öldürüldü!';
+            $newhp= 0;
+            $updating= new crud;
+            $updating->update('valuz',[$newhp=>$type],'hp');
+            return 'Dead!';
         }
 
 

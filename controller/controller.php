@@ -43,25 +43,26 @@ class Controller{
 
             case 0:
             echo 'Character is attacking';
+            $cid='M';
             $attackp= $human['dmg'];
             $healthp= $monster['hp'];
 
-
             $fighting= new Model;
-            $result= $fighting->fighting($attackp,$healthp);
+            $result= $fighting->fighting($attackp,$healthp,$cid);
             echo '<br>';
-            echo $result;
+            echo 'Monster: '. $result;
             break;
 
             case 1:
             echo 'Monster is attacking';
+            $cid='H';
             $attackp= $monster['dmg'];
             $healthp= $human['hp'];
 
             $fighting= new Model;
-            $result= $fighting->fighting($attackp,$healthp);
+            $result= $fighting->fighting($attackp,$healthp,$cid);
             echo '<br>';
-            echo $result;
+            echo 'Character: '. $result;
             break;
 
         }

@@ -71,26 +71,25 @@ class crud {
         }
     }
 
-    public function update($table,$values,$options=[]) {
+    public function update($table,$values,$columns,$type='tur') {
+
 
         try {
 
-            $columns_id=$values[$options['columns']];
-            unset($values[$options['columns']]);
-            $valuesExecute=$values;
-            $valuesExecute+=[$options['columns'] => $columns_id];
+            foreach ($values as $key => $value) {
 
+                $stmt = $this->db->prepare("UPDATE $table SET $columns=? WHERE $type=?");
+                $stmt->execute([$key,$value]);
 
-            $stmt=$this->db->prepare("UPDATE $table SET {$this->addValue($values)} WHERE {$options['columns']}=?");
-            $stmt->execute(array_values($valuesExecute));
+            }
 
             return ['status' => TRUE];
 
-        } catch (Exception $e) {
+        } catch(PDOException $e) {
+            echo $e->getMessage();
+            return ['status' => FALSE,'error'=> $e->getMessage()];
 
-            return ['status' => FALSE, 'error' => $e->getMessage()];
         }
-
     }
 
 
